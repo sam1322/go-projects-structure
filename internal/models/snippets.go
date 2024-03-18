@@ -64,6 +64,7 @@ WHERE expired_at > $1 AND id = $2`
 	// placeholder parameter. This returns a pointer to a sql.Row object which
 	// holds the result from the database.
 	now := time.Now()
+
 	row := m.DB.QueryRow(stmt, now, id)
 	// Initialize a pointer to a new zeroed Snippet struct.
 	s := &Snippet{}
