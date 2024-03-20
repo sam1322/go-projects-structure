@@ -39,10 +39,12 @@ func openDB(dsn string) (*sql.DB, error) {
 	return db, nil
 }
 
-type application struct {
+type Application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
 	snippets *models.SnippetModel
+	Snippets *models.SnippetModel
+	models   *models.Models
 }
 
 func InitNewServer() *http.Server {
@@ -67,10 +69,12 @@ func InitNewServer() *http.Server {
 
 	// defer db.Close()
 
-	app := &application{
+	app := &Application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
 		snippets: &models.SnippetModel{DB: db},
+		Snippets: &models.SnippetModel{DB: db},
+		models:   models.NewModels(db),
 	}
 
 	srv := &http.Server{
